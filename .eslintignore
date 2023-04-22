@@ -1,0 +1,8 @@
+node_modules
+build
+dist
+.git
+.vscode
+public
+netlify.toml
+vite.config.ts

@@ -1,0 +1,113 @@
+{
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "react-app",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:jsx-a11y/strict",
+    "plugin:react-perf/all",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict",
+    "plugin:prettier/recommended"
+  ],
+  "overrides": [],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "project": ["./tsconfig.json"],
+    "sourceType": "module",
+    "tsconfigRootDir": "./"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "prefer-arrow-functions",
+    "react-perf",
+    "prettier",
+    "jsx-a11y"
+  ],
+  "root": true,
+  "rules": {
+    "@typescript-eslint/consistent-type-definitions": [2, "type"],
+    "@typescript-eslint/consistent-type-imports": [2],
+    "@typescript-eslint/naming-convention": [
+      2,
+      {
+        "format": ["PascalCase"],
+        "selector": ["typeLike"]
+      },
+      {
+        "format": ["PascalCase", "camelCase"],
+        "selector": ["variable"],
+        "types": ["function"]
+      },
+      {
+        "format": ["camelCase", "UPPER_CASE"],
+        "selector": ["variable"],
+        "types": ["array", "boolean", "number", "string"]
+      },
+      {
+        "format": null,
+        "modifiers": ["requiresQuotes"],
+        "selector": ["objectLiteralProperty"]
+      },
+      {
+        "format": ["camelCase"],
+        "selector": ["parameter"]
+      }
+    ],
+    "@typescript-eslint/no-floating-promises": [0],
+    "@typescript-eslint/no-throw-literal": [0],
+    "no-console": [0],
+    "no-param-reassign": [
+      2,
+      {
+        "props": false
+      }
+    ],
+    "prefer-arrow-functions/prefer-arrow-functions": [
+      2,
+      {
+        "classPropertiesAllowed": false,
+        "disallowPrototype": true,
+        "returnStyle": "unchanged",
+        "singleReturnOnly": false
+      }
+    ],
+    "prettier/prettier": [
+      2,
+      {
+        "arrowParens": "avoid",
+        "bracketSameLine": true,
+        "endOfLine": "auto",
+        "singleAttributePerLine": true
+      }
+    ],
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-props-no-spreading": [0],
+    "react/require-default-props": [0]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
