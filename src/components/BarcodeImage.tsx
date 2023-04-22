@@ -2,6 +2,7 @@ import type { FC } from "react";
 import { memo, useRef } from "react";
 import Barcode from "react-barcode";
 import first from "../data/first.json";
+import Count from "./Count";
 
 const BarcodeImage: FC = () => {
   const ref = useRef<Barcode>(null!);
@@ -28,13 +29,19 @@ const BarcodeImage: FC = () => {
             src={`data:image/svg+xml;utf8,${ref.current}`}
             alt=""
           /> */}
-          <Barcode
-            value={NDC}
-            ref={ref}
-            // width={1}
-            // height={75}
-            // fontSize={15}
-          />
+          <div>
+            <Barcode
+              value={NDC}
+              ref={ref}
+              // width={1}
+              // height={75}
+              // fontSize={15}
+            />
+            <Count
+              NDC={NDC}
+              drug={drug}
+            />
+          </div>
         </div>
       ))}
     </>
