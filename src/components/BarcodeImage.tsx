@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { memo, useRef } from "react";
-import Barcode from "react-barcode";
+import type Barcode from "react-barcode";
 import { Col, Container, Row } from "react-bootstrap";
-import first from "../data/first.json";
+import CIIs from "../data/cIIs.json";
 import Count from "./Count";
 
 const BarcodeImage: FC = () => {
@@ -22,7 +22,7 @@ const BarcodeImage: FC = () => {
 
   return (
     <Container>
-      {first.map(({ drug, ndc }) => (
+      {CIIs.map(({ drug, ndc, src }) => (
         <Row
           className="border border-1"
           key={ndc}>
@@ -33,10 +33,14 @@ const BarcodeImage: FC = () => {
             <h2>{ndc}</h2>
           </Col>
           <Col className="border-end">
-            <Barcode
+            <img
+              src={src}
+              alt={ndc}
+            />
+            {/* <Barcode
               value={ndc}
               ref={ref}
-            />
+            /> */}
           </Col>
           <Col>
             <Count
