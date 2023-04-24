@@ -1,6 +1,6 @@
-import type { ChangeEvent, FC } from "react";
-import { memo, useCallback, useState } from "react";
-import { Button, FloatingLabel, Form, InputGroup } from "react-bootstrap";
+import type { ChangeEvent, FC, FocusEvent, KeyboardEvent } from "react";
+import { memo, useCallback, useRef, useState } from "react";
+import { Badge, FloatingLabel, Form, InputGroup } from "react-bootstrap";
 
 type Props = {
   ndc: string;
@@ -8,11 +8,33 @@ type Props = {
 };
 
 const Count: FC<Props> = ({ ndc, drug }) => {
-  const [val, setVal] = useState("");
+  const [val, setVal] = useState("0");
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLInputElement>(null);
 
   const changeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setVal(e.target.value);
-    // setVal(prev => (+e.target.value ? +e.target.value : prev));
+  }, []);
+
+  const blurHandler = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      setCount(prev => {
+        if (+val) {
+          return +val;
+        }
+        e.target.value = prev.toString();
+        return prev;
+      });
+    },
+    [val]
+  );
+
+  const focusHandler = useCallback((e: FocusEvent<HTMLInputElement>) => {
+    e.target.select();
+  }, []);
+
+  const keyDownHandler = useCallback((e: KeyboardEvent<HTMLInputElement>) => {
+    e.key === "Enter" && ref.current?.blur();
   }, []);
 
   return (
@@ -21,22 +43,22 @@ const Count: FC<Props> = ({ ndc, drug }) => {
         size="sm"
         hasValidation
         className="mt-3">
-        <Button variant="outline-secondary">Edit Count</Button>
         <FloatingLabel label="count">
           <Form.Control
+            ref={ref}
+            onFocus={focusHandler}
+            onChange={changeHandler}
+            onBlur={blurHandler}
+            onKeyDown={keyDownHandler}
+            value={val}
             placeholder="count"
             aria-label="Example text with two button addons"
           />
         </FloatingLabel>
       </InputGroup>
-      {/* <input
-        value={val}
-        // onSubmit={changeHandler}
-        onChange={changeHandler}
-        onBlur={changeHandler}
-        size={10}
-        // type="tel"
-      /> */}
+      <h1>
+        Count: <Badge bg="secondary">{count}</Badge>
+      </h1>
     </>
   );
 };
