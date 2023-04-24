@@ -1,6 +1,8 @@
 import type { ChangeEvent, FC, FocusEvent, KeyboardEvent } from "react";
 import { memo, useCallback, useRef, useState } from "react";
 import { Badge, FloatingLabel, Form, InputGroup } from "react-bootstrap";
+import useDependencyChangeLogger from "../hooks/loggers/useDependencyChangeLogger";
+import usePreviousState from "../hooks/usePreviousState";
 
 type Props = {
   ndc: string;
@@ -10,7 +12,10 @@ type Props = {
 const Count: FC<Props> = ({ ndc, drug }) => {
   const [val, setVal] = useState("0");
   const [count, setCount] = useState(0);
+  const prevCount = usePreviousState(count);
   const ref = useRef<HTMLInputElement>(null);
+
+  useDependencyChangeLogger(prevCount, "prevCount");
 
   const changeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setVal(e.target.value);
@@ -59,6 +64,9 @@ const Count: FC<Props> = ({ ndc, drug }) => {
       <h1>
         Count: <Badge bg="secondary">{count}</Badge>
       </h1>
+      <h4>
+        Previous Count: <Badge bg="secondary">{prevCount}</Badge>
+      </h4>
     </>
   );
 };
