@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { memo, useRef } from "react";
 import Barcode from "react-barcode";
+import { Col, Container, Row } from "react-bootstrap";
 import first from "../data/first.json";
 import Count from "./Count";
 
@@ -20,31 +21,32 @@ const BarcodeImage: FC = () => {
   // }, [ref]);
 
   return (
-    <>
-      {first.map(({ drug, NDC }) => (
-        <div key={NDC}>
-          <h1>{drug}</h1>
-          <h1>{NDC}</h1>
-          {/* <img
-            src={`data:image/svg+xml;utf8,${ref.current}`}
-            alt=""
-          /> */}
-          <div>
+    <Container>
+      {first.map(({ drug, ndc }) => (
+        <Row
+          className="border border-1"
+          key={ndc}>
+          <Col className="border-end">
+            <h2>{drug}</h2>
+          </Col>
+          <Col className="border-end">
+            <h2>{ndc}</h2>
+          </Col>
+          <Col className="border-end">
             <Barcode
-              value={NDC}
+              value={ndc}
               ref={ref}
-              // width={1}
-              // height={75}
-              // fontSize={15}
             />
+          </Col>
+          <Col>
             <Count
-              NDC={NDC}
+              ndc={ndc}
               drug={drug}
             />
-          </div>
-        </div>
+          </Col>
+        </Row>
       ))}
-    </>
+    </Container>
   );
 };
 

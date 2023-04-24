@@ -16,9 +16,11 @@
     "serve": "serve -s dist"
   },
   "dependencies": {
+    "bootstrap": "^5.2.3",
     "jsbarcode": "^3.11.5",
     "react": "^18.2.0",
     "react-barcode": "^1.4.6",
+    "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
