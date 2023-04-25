@@ -4,7 +4,9 @@ const getSavedValue = <T extends NonNullable<unknown>>(
   key: string,
   initialValue: T | ((...args: unknown[]) => T)
 ) => {
-  const savedValue = JSON.parse(localStorage.getItem(key)!) as T | undefined;
+  const savedValue = JSON.parse(localStorage.getItem(key) ?? "null") as
+    | T
+    | undefined;
   if (savedValue) return savedValue;
 
   if (initialValue instanceof Function) return initialValue();

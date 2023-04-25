@@ -14,7 +14,7 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
   const [val, setVal] = useState("0");
   const [count, setCount] = useState(0);
   const prevCount = usePreviousState(count);
-  const [storedCount, setStoredCount] = useLocalStorage(ndc, "0");
+  const [storedCount, setStoredCount] = useLocalStorage<number>(ndc, 0);
   const ref = useRef<HTMLInputElement>(null);
 
   const changeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,7 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
       });
       setStoredCount(prev => {
         if (+val) {
-          return val;
+          return +val;
         }
         return prev;
       });
