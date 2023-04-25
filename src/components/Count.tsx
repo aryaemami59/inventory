@@ -1,21 +1,19 @@
 import type { ChangeEvent, FC, FocusEvent, KeyboardEvent } from "react";
 import { memo, useCallback, useRef, useState } from "react";
 import { Badge, FloatingLabel, Form, InputGroup } from "react-bootstrap";
-import useDependencyChangeLogger from "../hooks/loggers/useDependencyChangeLogger";
 import usePreviousState from "../hooks/usePreviousState";
 
 type Props = {
   ndc: string;
   drug: string;
+  packSize: number;
 };
 
-const Count: FC<Props> = ({ ndc, drug }) => {
+const Count: FC<Props> = ({ ndc, drug, packSize }) => {
   const [val, setVal] = useState("0");
   const [count, setCount] = useState(0);
   const prevCount = usePreviousState(count);
   const ref = useRef<HTMLInputElement>(null);
-
-  useDependencyChangeLogger(prevCount, "prevCount");
 
   const changeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setVal(e.target.value);
@@ -42,6 +40,12 @@ const Count: FC<Props> = ({ ndc, drug }) => {
     e.key === "Enter" && ref.current?.blur();
   }, []);
 
+  const stockBottles = Math.floor(count / packSize)
+    ? Math.floor(count / packSize)
+    : 0;
+
+  const partial = count % packSize ? count % packSize : 0;
+
   return (
     <>
       <InputGroup
@@ -62,10 +66,16 @@ const Count: FC<Props> = ({ ndc, drug }) => {
         </FloatingLabel>
       </InputGroup>
       <h1>
-        Count: <Badge bg="secondary">{count}</Badge>
+        Count: <Badge bg="primary">{count}</Badge>
       </h1>
+      <h5>
+        Previous Count: <Badge bg="secondary">{prevCount ?? 0}</Badge>
+      </h5>
       <h4>
-        Previous Count: <Badge bg="secondary">{prevCount}</Badge>
+        # of Full Stock Bottles: <Badge bg="success">{stockBottles}</Badge>
+      </h4>
+      <h4>
+        Quantity in Partial Stock Bottles: <Badge bg="warning">{partial}</Badge>
       </h4>
     </>
   );

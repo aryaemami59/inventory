@@ -11,7 +11,7 @@ const BarcodeImage: FC = () => {
   return (
     <Container fluid>
       <h1 className="text-center my-5">CIIs</h1>
-      {CIIs.map(({ drug, ndc, src }) => (
+      {CIIs.map(({ drug, ndc, src, packSize }) => (
         <Row
           className="border border-1"
           key={ndc}>
@@ -31,6 +31,7 @@ const BarcodeImage: FC = () => {
           </Col>
           <Col>
             <Count
+              packSize={packSize}
               ndc={ndc}
               drug={drug}
             />
