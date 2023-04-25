@@ -1,6 +1,7 @@
 import type { ChangeEvent, FC, FocusEvent, KeyboardEvent } from "react";
 import { memo, useCallback, useRef, useState } from "react";
 import { Badge, FloatingLabel, Form, InputGroup } from "react-bootstrap";
+import useLocalStorage from "../hooks/useLocalStorage";
 import usePreviousState from "../hooks/usePreviousState";
 
 type Props = {
@@ -13,6 +14,7 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
   const [val, setVal] = useState("0");
   const [count, setCount] = useState(0);
   const prevCount = usePreviousState(count);
+  const [storedCount, setStoredCount] = useLocalStorage(ndc, "0");
   const ref = useRef<HTMLInputElement>(null);
 
   const changeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +30,14 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
         e.target.value = prev.toString();
         return prev;
       });
+      setStoredCount(prev => {
+        if (+val) {
+          return val;
+        }
+        return prev;
+      });
     },
-    [val]
+    [setStoredCount, val]
   );
 
   const focusHandler = useCallback((e: FocusEvent<HTMLInputElement>) => {
@@ -40,11 +48,11 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
     e.key === "Enter" && ref.current?.blur();
   }, []);
 
-  const stockBottles = Math.floor(count / packSize)
-    ? Math.floor(count / packSize)
+  const stockBottles = Math.floor(+storedCount / packSize)
+    ? Math.floor(+storedCount / packSize)
     : 0;
 
-  const partial = count % packSize ? count % packSize : 0;
+  const partial = +storedCount % packSize ? +storedCount % packSize : 0;
 
   return (
     <>
@@ -66,7 +74,7 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
         </FloatingLabel>
       </InputGroup>
       <h1>
-        Count: <Badge bg="primary">{count}</Badge>
+        Count: <Badge bg="primary">{+storedCount}</Badge>
       </h1>
       <h5>
         Previous Count: <Badge bg="secondary">{prevCount ?? 0}</Badge>
