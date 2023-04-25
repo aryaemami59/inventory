@@ -39,7 +39,7 @@ const BarcodeImage: FC = () => {
         </Row>
       ))}
       <h1 className="text-center my-5">Controls</h1>
-      {controls.map(({ drug, ndc, src }) => (
+      {controls.map(({ drug, ndc, src, packSize }) => (
         <Row
           className="border border-1"
           key={ndc}>
@@ -58,6 +58,7 @@ const BarcodeImage: FC = () => {
           </Col>
           <Col>
             <Count
+              packSize={packSize}
               ndc={ndc}
               drug={drug}
             />
