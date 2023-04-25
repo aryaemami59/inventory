@@ -1,8 +1,9 @@
 import type { ChangeEvent, FC, FocusEvent, KeyboardEvent } from "react";
-import { memo, useCallback, useRef, useState } from "react";
-import { Badge, FloatingLabel, Form, InputGroup } from "react-bootstrap";
+import { memo, useCallback, useMemo, useRef, useState } from "react";
+import { FloatingLabel, Form, InputGroup } from "react-bootstrap";
 import useLocalStorage from "../hooks/useLocalStorage";
 import usePreviousState from "../hooks/usePreviousState";
+import Display from "./Display";
 
 type Props = {
   ndc: string;
@@ -48,11 +49,15 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
     e.key === "Enter" && ref.current?.blur();
   }, []);
 
-  const stockBottles = Math.floor(+storedCount / packSize)
-    ? Math.floor(+storedCount / packSize)
-    : 0;
-
-  const partial = +storedCount % packSize ? +storedCount % packSize : 0;
+  const details = useMemo(
+    () => ({
+      stockBottles: Math.floor(+storedCount / packSize)
+        ? Math.floor(+storedCount / packSize)
+        : 0,
+      partial: +storedCount % packSize ? +storedCount % packSize : 0,
+    }),
+    [packSize, storedCount]
+  );
 
   return (
     <>
@@ -73,18 +78,11 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
           />
         </FloatingLabel>
       </InputGroup>
-      <h1>
-        Count: <Badge bg="primary">{+storedCount}</Badge>
-      </h1>
-      <h5>
-        Previous Count: <Badge bg="secondary">{prevCount ?? 0}</Badge>
-      </h5>
-      <h4>
-        # of Full Stock Bottles: <Badge bg="success">{stockBottles}</Badge>
-      </h4>
-      <h4>
-        Quantity in Partial Stock Bottles: <Badge bg="warning">{partial}</Badge>
-      </h4>
+      <Display
+        details={details}
+        prevCount={prevCount ?? 0}
+        storedCount={storedCount}
+      />
     </>
   );
 };
