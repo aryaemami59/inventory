@@ -9,19 +9,21 @@ const BarcodeImage: FC = () => {
   const ref = useRef<HTMLImageElement>(null);
 
   return (
-    <Container fluid>
+    <Container>
       <h1 className="text-center my-5">CIIs</h1>
       {CIIs.map(({ drug, ndc, src, packSize }) => (
         <Row
           className="border border-1"
           key={ndc}>
-          <Col className="border-end">
-            <h3>{drug}</h3>
+          <Col className="border-end text-break">
+            <h6>{drug}</h6>
           </Col>
           <Col className="border-end">
-            <h3>{ndc}</h3>
+            <h6>{ndc}</h6>
           </Col>
-          <Col className="border-end">
+          <Col
+            // sm="auto"
+            className="border-end">
             <img
               src={src}
               alt={ndc}
@@ -44,12 +46,14 @@ const BarcodeImage: FC = () => {
           className="border border-1"
           key={ndc}>
           <Col className="border-end">
-            <h3>{drug}</h3>
+            <h6>{drug}</h6>
           </Col>
           <Col className="border-end">
-            <h3>{ndc}</h3>
+            <h6>{ndc}</h6>
           </Col>
-          <Col className="border-end">
+          <Col
+            // sm="auto"
+            className="border-end">
             <img
               src={src}
               alt={ndc}

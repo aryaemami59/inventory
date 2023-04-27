@@ -10,20 +10,20 @@ type Props = {
 
 const Display: FC<Props> = ({ prevCount, storedCount, details }) => (
   <>
-    <h1>
+    <h6>
       Count: <Badge bg="primary">{+storedCount}</Badge>
-    </h1>
-    <h5>
+    </h6>
+    <p className="print-none m-0">
       Previous Count: <Badge bg="secondary">{prevCount}</Badge>
-    </h5>
-    <h4>
+    </p>
+    <p className="m-0 print-fs-12">
       # of Full Stock Bottles:{" "}
       <Badge bg="success">{details.stockBottles}</Badge>
-    </h4>
-    <h4>
+    </p>
+    <p className="m-0 print-fs-12">
       Quantity in Partial Stock Bottles:{" "}
       <Badge bg="warning">{details.partial}</Badge>
-    </h4>
+    </p>
   </>
 );
 

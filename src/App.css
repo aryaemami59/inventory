@@ -1,0 +1,8 @@
+@media print {
+  .print-none {
+    display: none;
+  }
+  .print-fs-12 {
+    font-size: 12px;
+  }
+}

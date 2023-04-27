@@ -64,7 +64,7 @@ const Count: FC<Props> = ({ ndc, drug, packSize }) => {
       <InputGroup
         size="sm"
         hasValidation
-        className="mt-3">
+        className="mt-3 print-none">
         <FloatingLabel label="count">
           <Form.Control
             ref={ref}
