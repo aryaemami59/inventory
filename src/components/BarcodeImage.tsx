@@ -20,14 +20,12 @@ const BarcodeImage: FC = () => {
           <Col className="border-end">
             <h6>{ndc}</h6>
           </Col>
-          <Col
-            // sm="auto"
-            className="border-end">
+          <Col className="border-end">
             <img
               src={src}
               alt={ndc}
               ref={ref}
-              className="mb-5"
+              className="mb-2"
             />
           </Col>
           <Col>
@@ -44,19 +42,18 @@ const BarcodeImage: FC = () => {
         <Row
           className="border border-1"
           key={ndc}>
-          <Col className="border-end">
+          <Col className="border-end text-break">
             <h6>{drug}</h6>
           </Col>
           <Col className="border-end">
             <h6>{ndc}</h6>
           </Col>
-          <Col
-            // sm="auto"
-            className="border-end">
+          <Col className="border-end">
             <img
               src={src}
               alt={ndc}
               ref={ref}
+              className="mb-2"
             />
           </Col>
           <Col>

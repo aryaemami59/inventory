@@ -10,7 +10,7 @@ type Props = {
 
 const Display: FC<Props> = ({ prevCount, storedCount, details }) => (
   <>
-    <h6>
+    <h6 className="mt-1">
       Count: <Badge bg="primary">{+storedCount}</Badge>
     </h6>
     <p className="print-none m-0">
@@ -22,7 +22,11 @@ const Display: FC<Props> = ({ prevCount, storedCount, details }) => (
     </p>
     <p className="m-0 print-fs-12">
       Quantity in Partial Stock Bottles:{" "}
-      <Badge bg="warning">{details.partial}</Badge>
+      <Badge
+        bg="warning"
+        text="dark">
+        {details.partial}
+      </Badge>
     </p>
   </>
 );
