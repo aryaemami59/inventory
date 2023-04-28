@@ -1,8 +1,7 @@
 import type { FC } from "react";
 import { memo, useRef } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import CIIs from "../data/cIIs.json";
-import controls from "../data/controls.json";
+import { ciis, controls } from "../data/data.json";
 import Count from "./Count";
 
 const BarcodeImage: FC = () => {
@@ -11,7 +10,7 @@ const BarcodeImage: FC = () => {
   return (
     <Container>
       <h1 className="text-center my-5">CIIs</h1>
-      {CIIs.map(({ drug, ndc, src, packSize }) => (
+      {ciis.map(({ drug, ndc, src, packSize }) => (
         <Row
           className="border border-1"
           key={ndc}>
