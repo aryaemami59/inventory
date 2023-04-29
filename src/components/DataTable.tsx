@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { memo } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import type { Controls } from "../types/api";
 import Count from "./Count";
 
@@ -12,6 +12,43 @@ type Props = {
 const DataTable: FC<Props> = ({ title, schedule }) => (
   <>
     <h1 className="text-center my-5">{title}</h1>
+    <Table
+      bordered
+      // className="m-3"
+      striped
+      responsive>
+      <thead>
+        <tr>
+          <th>Drug Name</th>
+          <th>NDC</th>
+          <th>Barcode Image</th>
+          <th>Counts</th>
+        </tr>
+      </thead>
+      <tbody>
+        {schedule.map(({ drug, ndc, packSize, src }) => (
+          <tr key={ndc}>
+            <td>{drug}</td>
+            <td>{ndc}</td>
+            <td>
+              <img
+                src={src}
+                alt={ndc}
+                className="mb-2"
+              />
+            </td>
+            <td>
+              <Count
+                packSize={packSize}
+                ndc={ndc}
+                drug={drug}
+              />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+    {/* <h1 className="text-center my-5">{title}</h1>
     {schedule.map(({ drug, ndc, src, packSize }) => (
       <Row
         className="border border-1"
@@ -37,7 +74,7 @@ const DataTable: FC<Props> = ({ title, schedule }) => (
           />
         </Col>
       </Row>
-    ))}
+    ))} */}
   </>
 );
 
